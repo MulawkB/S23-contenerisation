@@ -1,0 +1,39 @@
+<h1>Edit Payment</h1>
+
+<form method="POST" action="/payments/edit/<%= payment.id %>">
+
+  <label>Order</label>
+  <select name="orderId" required>
+    <% orders.forEach(order => { %>
+      <option 
+        value="<%= order.id %>"
+        <%= payment.orderId === order.id ? 'selected' : '' %>
+      >
+        <%= order.customerName %> - <%= order.totalAmount %> €
+      </option>
+    <% }) %>
+  </select>
+
+  <label>Amount</label>
+  <input name="amount" type="number" step="0.01" min="0" value="<%= payment.amount %>" />
+
+  <label>Payment Date</label>
+  <input name="paymentDate" type="date" value="<%= payment.paymentDate %>" />
+
+  <label>Payment Method</label>
+  <select name="paymentMethod">
+    <option value="card" <%= payment.paymentMethod === 'card' ? 'selected' : '' %>>card</option>
+    <option value="cash" <%= payment.paymentMethod === 'cash' ? 'selected' : '' %>>cash</option>
+    <option value="paypal" <%= payment.paymentMethod === 'paypal' ? 'selected' : '' %>>paypal</option>
+  </select>
+
+  <label>Status</label>
+  <select name="status">
+    <option value="pending" <%= payment.status === 'pending' ? 'selected' : '' %>>pending</option>
+    <option value="paid" <%= payment.status === 'paid' ? 'selected' : '' %>>paid</option>
+    <option value="cancelled" <%= payment.status === 'cancelled' ? 'selected' : '' %>>cancelled</option>
+  </select>
+
+  <button type="submit">Update</button>
+
+</form>

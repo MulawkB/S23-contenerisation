@@ -1,0 +1,16 @@
+<h1>Edit Order</h1>
+
+<form method="POST" action="/orders/edit/<%= order.id %>">
+  <input name="customerName" value="<%= order.customerName %>" />
+  <label>Order Date</label>
+  <input name="orderDate" type="date" value="<%= order.orderDate %>" />
+  <input name="totalAmount" step="0.01" min="0" value="<%= order.totalAmount %>" />
+  <label>Status</label>
+  <select name="status">
+    <option value="pending" <%= order.status === 'pending' ? 'selected' : '' %>>pending</option>
+    <option value="paid" <%= order.status === 'paid' ? 'selected' : '' %>>paid</option>
+    <option value="cancelled" <%= order.status === 'cancelled' ? 'selected' : '' %>>cancelled</option>
+  </select>
+
+  <button type="submit">Update</button>
+</form>

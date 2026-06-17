@@ -1,0 +1,12 @@
+<h1>New Order</h1>
+
+<form method="POST" action="/orders/new">
+  <input name="customerName" placeholder="Customer Name" />
+  <input name="orderDate" type="date" />
+  <input name="totalAmount" type="number" step="0.01" min="0"/>
+  <select name="status">
+    <option value="pending">pending</option>
+    <option value="paid">paid</option>
+  </select>
+  <button type="submit">Create</button>
+</form>

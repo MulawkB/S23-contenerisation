@@ -1,0 +1,52 @@
+<form method="POST" action="/payments/new">
+
+  <label>Order</label>
+  <select name="orderId" id="orderSelect" required>
+    <option value="">Select order</option>
+
+    <% orders.forEach(order => { %>
+      <option 
+        value="<%= order.id %>" 
+        data-amount="<%= order.totalAmount %>"
+      >
+        <%= order.customerName %> - <%= order.totalAmount %> €
+      </option>
+    <% }) %>
+
+  </select>
+
+  <input 
+    name="amount" 
+    id="amountInput"
+    type="number" 
+    step="0.01" 
+    min="0"
+    placeholder="Amount"
+  />
+
+  <input name="paymentDate" type="date" required />
+
+  <select name="paymentMethod">
+    <option value="card">card</option>
+    <option value="cash">cash</option>
+    <option value="paypal">paypal</option>
+  </select>
+
+  <select name="status">
+    <option value="pending">pending</option>
+    <option value="paid">paid</option>
+  </select>
+
+  <button type="submit">Create</button>
+
+</form>
+
+<script>
+document.getElementById("orderSelect").addEventListener("change", function () {
+  const selected = this.options[this.selectedIndex];
+
+  const amount = selected.getAttribute("data-amount");
+
+  document.getElementById("amountInput").value = amount;
+});
+</script>

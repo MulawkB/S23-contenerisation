@@ -1,0 +1,30 @@
+<h1>Payments</h1>
+<a href="/">Acceuil</a>
+
+<a href="/payments/new">Créer un paiement</a>
+
+<ul>
+  <% payments.forEach(payment => { %>
+    <li>
+      <strong>ID:</strong> <%= payment.id %> <br>
+
+      <strong>Order:</strong> <%= payment.orderId %> <br>
+
+      <strong>Amount:</strong> <%= payment.amount %> € <br>
+
+      <strong>Date:</strong> <%= payment.paymentDate %> <br>
+
+      <strong>Method:</strong> <%= payment.paymentMethod %> <br>
+
+      <strong>Status:</strong> <%= payment.status %> <br>
+
+      <a href="/payments/edit/<%= payment.id %>">Edit</a>
+
+      <form action="/payments/delete/<%= payment.id %>" method="POST" style="display:inline;">
+        <button type="submit">Delete</button>
+      </form>
+
+      <hr>
+    </li>
+  <% }) %>
+</ul>

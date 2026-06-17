@@ -1,0 +1,52 @@
+<h1>Edit Inventory Item</h1>
+
+<a href="/inventory">← Back to list</a>
+
+<form method="POST" action="/inventory/edit/<%= item.id %>">
+
+  <div>
+    <label>Title</label>
+    <input 
+      type="text" 
+      name="title" 
+      value="<%= item.title %>" 
+      required 
+    />
+  </div>
+
+  <div>
+    <label>Author</label>
+    <input 
+      type="text" 
+      name="author" 
+      value="<%= item.author %>" 
+      required 
+    />
+  </div>
+
+  <div>
+    <label>Stock</label>
+    <input 
+      type="number" 
+      name="quantity" 
+      value="<%= item.stock %>" 
+      min="0" 
+      required 
+    />
+  </div>
+
+  <div>
+    <label>Price (€)</label>
+    <input 
+      type="number" 
+      name="price" 
+      value="<%= item.price %>" 
+      step="0.01" 
+      min="0" 
+      required 
+    />
+  </div>
+
+  <button type="submit">Update</button>
+
+</form>

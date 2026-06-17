@@ -1,0 +1,30 @@
+<h1>Orders</h1>
+<a href="/">Acceuil</a>
+
+<a href="/orders/new">Créer une commande</a>
+
+<ul>
+  <% orders.forEach(order => { %>
+    <li>
+
+      <strong>ID:</strong> <%= order.id %> <br>
+
+      <strong>Client:</strong> <%= order.customerName %> <br>
+
+      <strong>Date:</strong> <%= order.orderDate %> <br>
+
+      <strong>Montant:</strong> <%= order.totalAmount %> € <br>
+
+      <strong>Status:</strong> <%= order.status %> <br>
+
+      <a href="/orders/edit/<%= order.id %>">Edit</a>
+
+      <form action="/orders/delete/<%= order.id %>" method="POST" style="display:inline;">
+        <button type="submit">Delete</button>
+      </form>
+
+      <hr>
+
+    </li>
+  <% }) %>
+</ul>

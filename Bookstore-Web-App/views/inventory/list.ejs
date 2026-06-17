@@ -1,0 +1,21 @@
+<h1>Inventory</h1>
+<a href="/">Acceuil</a>
+
+<a href="/inventory/new">Créer un item</a>
+
+<ul>
+  <% inventory.forEach(item => { %>
+    <li>
+      <strong><%= item.title %></strong>
+      - author: <%= item.author %>
+      - stock: <%= item.stock %>
+      - price: <%= item.price %>€
+
+      <a href="/inventory/edit/<%= item.id %>">Edit</a>
+
+      <form method="POST" action="/inventory/delete/<%= item.id %>" style="display:inline;">
+        <button type="submit">Delete</button>
+      </form>
+    </li>
+  <% }) %>
+</ul>
