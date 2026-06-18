@@ -2,6 +2,7 @@ import {Entity, model, property} from '@loopback/repository';
 
 @model()
 export class Payment extends Entity {
+
   @property({
     type: 'string',
     id: true,
@@ -13,37 +14,33 @@ export class Payment extends Entity {
     type: 'string',
     required: true,
   })
-  orderId: string;
+  orderId!: string;
 
   @property({
     type: 'number',
     required: true,
   })
-  amount: number;
+  amount!: number;
+
+  @property({
+    type: 'date',
+    required: true,
+  })
+  paymentDate!: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  paymentDate: string;
+  paymentMethod!: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  paymentMethod: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  status: string;
+  status!: string;
 
   constructor(data?: Partial<Payment>) {
     super(data);
   }
 }
-
-export interface PaymentRelations {}
-
-export type PaymentWithRelations = Payment & PaymentRelations;

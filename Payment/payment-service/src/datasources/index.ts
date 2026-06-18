@@ -1,1 +1,1 @@
-export {PaymentdbDataSource} from './paymentdb.datasource';
+export * from './paymentdb.datasource';

@@ -5,7 +5,7 @@ const router = express.Router();
 
 // const API_URL = "http://localhost:9001/orders";
 const API_URL = "http://api-gateway:9001/orders";
-/* ================= LIST ================= */
+
 router.get("/", async (req, res) => {
   try {
     const response = await fetch(API_URL);
@@ -18,12 +18,12 @@ router.get("/", async (req, res) => {
   }
 });
 
-/* ================= CREATE PAGE ================= */
+
 router.get("/new", (req, res) => {
   res.render("orders/new");
 });
 
-/* ================= CREATE ================= */
+/* CREATE  */
 router.post("/new", async (req, res) => {
   try {
     await fetch(API_URL, {
@@ -42,7 +42,7 @@ router.post("/new", async (req, res) => {
   }
 });
 
-/* ================= EDIT PAGE ================= */
+/* EDIT PAGE  */
 router.get("/edit/:id", async (req, res) => {
   try {
     const response = await fetch(`${API_URL}/${req.params.id}`);
@@ -55,7 +55,7 @@ router.get("/edit/:id", async (req, res) => {
   }
 });
 
-/* ================= UPDATE ================= */
+/*  UPDATE */
 router.post("/edit/:id", async (req, res) => {
   try {
     await fetch(`${API_URL}/${req.params.id}`, {
@@ -74,7 +74,7 @@ router.post("/edit/:id", async (req, res) => {
   }
 });
 
-/* ================= DELETE ================= */
+/* DELETE  */
 router.post("/delete/:id", async (req, res) => {
   try {
     await fetch(`${API_URL}/${req.params.id}`, {

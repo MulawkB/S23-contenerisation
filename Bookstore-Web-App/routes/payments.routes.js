@@ -17,7 +17,7 @@ async function getJSON(url) {
 
   return text ? JSON.parse(text) : null;
 }
-/* ================= LIST ================= */
+
 router.get("/", async (req, res) => {
   try {
     const payments = await getJSON(API_URL);
@@ -28,10 +28,12 @@ router.get("/", async (req, res) => {
   }
 });
 
-/* ================= NEW ================= */
 router.get("/new", async (req, res) => {
   try {
     const orders = await getJSON(ORDER_API);
+
+    console.log("RAW ORDERS RESPONSE:", orders);
+
     res.render("payments/new", { orders });
   } catch (err) {
     console.error("NEW PAGE ERROR:", err.message);
@@ -39,22 +41,40 @@ router.get("/new", async (req, res) => {
   }
 });
 
-/* ================= CREATE ================= */
+/* CREATE */
 router.post("/new", async (req, res) => {
   try {
     const payload = {
       orderId: req.body.orderId,
       amount: Number(req.body.amount),
-      paymentDate: req.body.paymentDate,
+      paymentDate: req.body.paymentDate
+        ? new Date(req.body.paymentDate).toISOString()
+        : new Date().toISOString(),
       paymentMethod: req.body.paymentMethod,
       status: req.body.status
     };
 
-    await fetch(API_URL, {
+    console.log("Sending payment:", payload);
+
+    const response = await fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
+
+    let responseData;
+    try {
+      responseData = await response.json();
+    } catch {
+      responseData = await response.text();
+    }
+
+    console.log("Gateway response:", responseData);
+
+    if (!response.ok) {
+      console.error("PAYMENT ERROR RAW:", responseData);
+      throw new Error(JSON.stringify(responseData));
+    }
 
     res.redirect("/payments");
 
@@ -64,7 +84,7 @@ router.post("/new", async (req, res) => {
   }
 });
 
-/* ================= EDIT ================= */
+/* EDIT */
 router.get("/edit/:id", async (req, res) => {
   try {
     const [payment, orders] = await Promise.all([
@@ -80,13 +100,13 @@ router.get("/edit/:id", async (req, res) => {
   }
 });
 
-/* ================= UPDATE ================= */
+/* UPDATE */
 router.post("/edit/:id", async (req, res) => {
   try {
     const payload = {
       orderId: req.body.orderId,
       amount: Number(req.body.amount),
-      paymentDate: req.body.paymentDate,
+      paymentDate: new Date(req.body.paymentDate).toISOString(),
       paymentMethod: req.body.paymentMethod,
       status: req.body.status
     };
@@ -98,14 +118,13 @@ router.post("/edit/:id", async (req, res) => {
     });
 
     res.redirect("/payments");
-
   } catch (err) {
     console.error("UPDATE ERROR:", err.message);
     res.status(500).send("Error updating payment");
   }
 });
 
-/* ================= DELETE ================= */
+/* DELETE */
 router.post("/delete/:id", async (req, res) => {
   try {
     await fetch(`${API_URL}/${req.params.id}`, {

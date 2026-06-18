@@ -8,6 +8,7 @@ COPY . .
 RUN npm install
 
 RUN npm run build
+RUN ls -R dist
 
 EXPOSE 3002
 
