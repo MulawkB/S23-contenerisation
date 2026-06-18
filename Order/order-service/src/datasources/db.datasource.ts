@@ -4,7 +4,7 @@ import {juggler} from '@loopback/repository';
 const config = {
   name: 'db',
   connector: 'mongodb',
-  url: `mongodb://${process.env.MONGO_HOST || 'mongo'}:27017/orderdb`,
+  url: `mongodb://${process.env.MONGO_HOST}:27017/orderdb`,
 };
 
 @lifeCycleObserver('datasource')

@@ -4,12 +4,12 @@ import {juggler} from '@loopback/repository';
 const config = {
   name: 'db',
   connector: 'mongodb',
-  url: `mongodb://${process.env.MONGO_HOST || 'mongo'}:27017/paymentdb`,
+  url: `mongodb://${process.env.MONGO_HOST}:27017/paymentdb`,
 };
 
 @lifeCycleObserver('datasource')
 export class DbDataSource extends juggler.DataSource implements LifeCycleObserver {
-  static dataSourceName = 'db';
+  static dataSourceName = 'paymentdb';
   static readonly defaultConfig = config;
 
   constructor(

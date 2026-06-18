@@ -2,10 +2,13 @@ services:
 
   mongo:
     image: mongo:7
-    container_name: mongo-db
-    ports:
-      - "27017:27017"
+    container_name: mongo-db-contenerisation
     restart: always
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
 
   inventory-service:
     build: ./Inventory/inventory-service
@@ -13,7 +16,8 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - mongo
+      mongo:
+        condition: service_healthy
     environment:
       MONGO_HOST: mongo
 
@@ -23,7 +27,8 @@ services:
     ports:
       - "3001:3001"
     depends_on:
-      - mongo
+      mongo:
+        condition: service_healthy
     environment:
       MONGO_HOST: mongo
 
@@ -33,7 +38,8 @@ services:
     ports:
       - "3002:3002"
     depends_on:
-      - mongo
+      mongo:
+        condition: service_healthy
     environment:
       MONGO_HOST: mongo
 

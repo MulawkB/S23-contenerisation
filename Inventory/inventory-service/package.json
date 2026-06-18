@@ -26,8 +26,7 @@
     "posttest": "npm run lint",
     "migrate": "node ./dist/migrate",
     "openapi-spec": "node ./dist/openapi-spec",
-    "prestart": "npm run rebuild",
-    "start": "node -r source-map-support/register .",
+    "start": "node dist/index.js",
     "prepare": "npm run build",
     "rebuild": "npm run clean && npm run build"
   },
